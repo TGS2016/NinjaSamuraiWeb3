@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
 
         initializeVideoAd();
 
-        AdEvent.insta.showAd();
     }
 
     void initializeVideoAd()
@@ -91,11 +90,7 @@ public class UIManager : MonoBehaviour
 
             //if (PlayerPrefs.GetInt ("Inerstitial", 1) == 1) 
             //{
-            if (!IsInterstitialDisplayed)
-            {
-                AdEvent.insta.showAd();
-                IsInterstitialDisplayed = true;
-            }
+            
             //}
         }
     }
@@ -162,7 +157,6 @@ public class UIManager : MonoBehaviour
 
         //if (PlayerPrefs.GetInt ("Inerstitial") == 1)
         //{
-        AdEvent.insta.showAd();
         IsInterstitialDisplayed = true;
         //}
         ScoreUI.SetActive(false);
@@ -194,12 +188,7 @@ public class UIManager : MonoBehaviour
 				
 				initializeVideoAd ();
 			}*/
-            AdEvent.rewardtype = 2;
-            if (!AdEvent.insta.showVideoAds())
-            {
-                FailedPanel.SetActive(true);
-                Debug.Log("Not Ready");
-            }
+           
         }
         else
             CanNotContinuePanel.SetActive(true);

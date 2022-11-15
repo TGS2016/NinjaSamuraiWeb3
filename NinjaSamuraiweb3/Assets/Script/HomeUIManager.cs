@@ -237,12 +237,8 @@ public class HomeUIManager : MonoBehaviour
     public void RewardBtn()
     {
         audioManager.instance.PlaySound("Click");
-        AdEvent.rewardtype = 1;
-        if (!AdEvent.insta.showVideoAds())
-        {
             NoAdVideoPanel.SetActive(true);
-            Debug.Log("Not Ready");
-        }
+            
 
         /*if (Advertisement.IsReady ("rewardedVideo")) 
 		{
@@ -305,15 +301,7 @@ public class HomeUIManager : MonoBehaviour
     public void ShareBtn()
     {
         audioManager.instance.PlaySound("Click");
-        //string screenShotPath = Application.persistentDataPath + "/" + ScreenshotName;
-        //Application.CaptureScreenshot (ScreenshotName);
-        string text = "";
-#if UNITY_ANDROID
-        text = "\nHey,\n I'm playing " + Application.productName + ".\nIts really amazing action game.\nDownload Now :\n" + ANDROID_LINK;
-#elif UNITY_IOS
-		text = "\nHey,\n I'm playing "+Application.productName+".\nIts really amazing action game.\nDownload Now :\n"+ IOS_LINK;
-#endif
-        new NativeShare().SetSubject(Application.productName.ToString()).SetText(text).Share();
+    
     }
     //set the background image size based on screen size
     void SetBackGroundScale()

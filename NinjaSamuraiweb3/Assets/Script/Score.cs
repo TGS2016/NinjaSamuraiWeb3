@@ -182,7 +182,6 @@ public class Score : MonoBehaviour
 
     void ShowInterstitial()
     {
-        AdEvent.insta.showAd();
         //	Invoke ("initializeInerstitial",0.5f);
     }
 
