@@ -1,237 +1,301 @@
+/*
+Copyright (c) 2010-2021 Matt Schoen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 using UnityEngine;
 
-public static partial class JSONTemplates {
+namespace Defective.JSON {
+	// ReSharper disable once PartialTypeWithSinglePart
+	public static partial class JSONTemplates {
+		/*
+		 * Vector2
+		 */
+		public static Vector2 ToVector2(this JSONObject jsonObject) {
+			var x = jsonObject["x"] ? jsonObject["x"].floatValue : 0;
+			var y = jsonObject["y"] ? jsonObject["y"].floatValue : 0;
+			return new Vector2(x, y);
+		}
 
-	/*
-	 * Vector2
-	 */
-	public static Vector2 ToVector2(JSONObject obj) {
-		float x = obj["x"] ? obj["x"].f : 0;
-		float y = obj["y"] ? obj["y"].f : 0;
-		return new Vector2(x, y);
-	}
-	public static JSONObject FromVector2(Vector2 v) {
-		JSONObject vdata = JSONObject.obj;
-		if(v.x != 0)	vdata.AddField("x", v.x);
-		if(v.y != 0)	vdata.AddField("y", v.y);
-		return vdata;
-	}
-	/*
-	 * Vector3
-	 */
-	public static JSONObject FromVector3(Vector3 v) {
-		JSONObject vdata = JSONObject.obj;
-		if(v.x != 0)	vdata.AddField("x", v.x);
-		if(v.y != 0)	vdata.AddField("y", v.y);
-		if(v.z != 0)	vdata.AddField("z", v.z);
-		return vdata;
-	}
-	public static Vector3 ToVector3(JSONObject obj) {
-		float x = obj["x"] ? obj["x"].f : 0;
-		float y = obj["y"] ? obj["y"].f : 0;
-		float z = obj["z"] ? obj["z"].f : 0;
-		return new Vector3(x, y, z);
-	}
-	/*
-	 * Vector4
-	 */
-	public static JSONObject FromVector4(Vector4 v) {
-		JSONObject vdata = JSONObject.obj;
-		if(v.x != 0)	vdata.AddField("x", v.x);
-		if(v.y != 0)	vdata.AddField("y", v.y);
-		if(v.z != 0)	vdata.AddField("z", v.z);
-		if(v.w != 0)	vdata.AddField("w", v.w);
-		return vdata;
-	}
-	public static Vector4 ToVector4(JSONObject obj) {
-		float x = obj["x"] ? obj["x"].f : 0;
-		float y = obj["y"] ? obj["y"].f : 0;
-		float z = obj["z"] ? obj["z"].f : 0;
-		float w = obj["w"] ? obj["w"].f : 0;
-		return new Vector4(x, y, z, w);
-	}
-	/*
-	 * Matrix4x4
-	 */
-	public static JSONObject FromMatrix4x4(Matrix4x4 m) {
-		JSONObject mdata = JSONObject.obj;
-		if(m.m00 != 0) mdata.AddField("m00", m.m00);
-		if(m.m01 != 0) mdata.AddField("m01", m.m01);
-		if(m.m02 != 0) mdata.AddField("m02", m.m02);
-		if(m.m03 != 0) mdata.AddField("m03", m.m03);
-		if(m.m10 != 0) mdata.AddField("m10", m.m10);
-		if(m.m11 != 0) mdata.AddField("m11", m.m11);
-		if(m.m12 != 0) mdata.AddField("m12", m.m12);
-		if(m.m13 != 0) mdata.AddField("m13", m.m13);
-		if(m.m20 != 0) mdata.AddField("m20", m.m20);
-		if(m.m21 != 0) mdata.AddField("m21", m.m21);
-		if(m.m22 != 0) mdata.AddField("m22", m.m22);
-		if(m.m23 != 0) mdata.AddField("m23", m.m23);
-		if(m.m30 != 0) mdata.AddField("m30", m.m30);
-		if(m.m31 != 0) mdata.AddField("m31", m.m31);
-		if(m.m32 != 0) mdata.AddField("m32", m.m32);
-		if(m.m33 != 0) mdata.AddField("m33", m.m33);
-		return mdata;
-	}
-	public static Matrix4x4 ToMatrix4x4(JSONObject obj) {
-		Matrix4x4 result = new Matrix4x4();
-		if(obj["m00"]) result.m00 = obj["m00"].f;
-		if(obj["m01"]) result.m01 = obj["m01"].f;
-		if(obj["m02"]) result.m02 = obj["m02"].f;
-		if(obj["m03"]) result.m03 = obj["m03"].f;
-		if(obj["m10"]) result.m10 = obj["m10"].f;
-		if(obj["m11"]) result.m11 = obj["m11"].f;
-		if(obj["m12"]) result.m12 = obj["m12"].f;
-		if(obj["m13"]) result.m13 = obj["m13"].f;
-		if(obj["m20"]) result.m20 = obj["m20"].f;
-		if(obj["m21"]) result.m21 = obj["m21"].f;
-		if(obj["m22"]) result.m22 = obj["m22"].f;
-		if(obj["m23"]) result.m23 = obj["m23"].f;
-		if(obj["m30"]) result.m30 = obj["m30"].f;
-		if(obj["m31"]) result.m31 = obj["m31"].f;
-		if(obj["m32"]) result.m32 = obj["m32"].f;
-		if(obj["m33"]) result.m33 = obj["m33"].f;
-		return result;
-	}
-	/*
-	 * Quaternion
-	 */
-	public static JSONObject FromQuaternion(Quaternion q) {
-		JSONObject qdata = JSONObject.obj;
-		if(q.w != 0)	qdata.AddField("w", q.w);
-		if(q.x != 0)	qdata.AddField("x", q.x);
-		if(q.y != 0)	qdata.AddField("y", q.y);
-		if(q.z != 0)	qdata.AddField("z", q.z);
-		return qdata;
-	}
-	public static Quaternion ToQuaternion(JSONObject obj) {
-		float x = obj["x"] ? obj["x"].f : 0;
-		float y = obj["y"] ? obj["y"].f : 0;
-		float z = obj["z"] ? obj["z"].f : 0;
-		float w = obj["w"] ? obj["w"].f : 0;
-		return new Quaternion(x, y, z, w);
-	}
-	/*
-	 * Color
-	 */
-	public static JSONObject FromColor(Color c) {
-		JSONObject cdata = JSONObject.obj;
-		if(c.r != 0)	cdata.AddField("r", c.r);
-		if(c.g != 0)	cdata.AddField("g", c.g);
-		if(c.b != 0)	cdata.AddField("b", c.b);
-		if(c.a != 0)	cdata.AddField("a", c.a);
-		return cdata;
-	}
-	public static Color ToColor(JSONObject obj) {
-		Color c = new Color();
-		for(int i = 0; i < obj.Count; i++) {
-			switch(obj.keys[i]) {
-			case "r": c.r = obj[i].f; break;
-			case "g": c.g = obj[i].f; break;
-			case "b": c.b = obj[i].f; break;
-			case "a": c.a = obj[i].f; break;
-			}
+		public static JSONObject FromVector2(this Vector2 vector) {
+			var jsonObject = JSONObject.emptyObject;
+			if (vector.x != 0) jsonObject.AddField("x", vector.x);
+			if (vector.y != 0) jsonObject.AddField("y", vector.y);
+			return jsonObject;
 		}
-		return c;
-	}
-	/*
-	 * Layer Mask
-	 */
-	public static JSONObject FromLayerMask(LayerMask l) {
-		JSONObject result = JSONObject.obj;
-		result.AddField("value", l.value);
-		return result;
-	}
-	public static LayerMask ToLayerMask(JSONObject obj) {
-		LayerMask l = new LayerMask {value = (int)obj["value"].n};
-		return l;
-	}
-	public static JSONObject FromRect(Rect r) {
-		JSONObject result = JSONObject.obj;
-		if(r.x != 0)		result.AddField("x", r.x);
-		if(r.y != 0)		result.AddField("y", r.y);
-		if(r.height != 0)	result.AddField("height", r.height);
-		if(r.width != 0)	result.AddField("width", r.width);
-		return result;
-	}
-	public static Rect ToRect(JSONObject obj) {
-		Rect r = new Rect();
-		for(int i = 0; i < obj.Count; i++) {
-			switch(obj.keys[i]) {
-			case "x": r.x = obj[i].f; break;
-			case "y": r.y = obj[i].f; break;
-			case "height": r.height = obj[i].f; break;
-			case "width": r.width = obj[i].f; break;
-			}
+
+		public static JSONObject ToJson(this Vector2 vector) {
+			return vector.FromVector2();
 		}
-		return r;
-	}
-	public static JSONObject FromRectOffset(RectOffset r) {
-		JSONObject result = JSONObject.obj;
-		if(r.bottom != 0)		result.AddField("bottom", r.bottom);
-		if(r.left != 0)			result.AddField("left", r.left);
-		if(r.right != 0)		result.AddField("right", r.right);
-		if(r.top != 0)			result.AddField("top", r.top);
-		return result;
-	}
-	public static RectOffset ToRectOffset(JSONObject obj) {
-		RectOffset r = new RectOffset();
-		for(int i = 0; i < obj.Count; i++) {
-			switch(obj.keys[i]) {
-			case "bottom": r.bottom = (int)obj[i].n; break;
-			case "left": r.left = (int)obj[i].n; break;
-			case "right": r.right =	(int)obj[i].n; break;
-			case "top": r.top = (int)obj[i].n; break;
-			}
+
+		/*
+		 * Vector3
+		 */
+		public static JSONObject FromVector3(this Vector3 vector) {
+			var jsonObject = JSONObject.emptyObject;
+			if (vector.x != 0) jsonObject.AddField("x", vector.x);
+			if (vector.y != 0) jsonObject.AddField("y", vector.y);
+			if (vector.z != 0) jsonObject.AddField("z", vector.z);
+			return jsonObject;
 		}
-		return r;
-	}
-	
-	public static AnimationCurve ToAnimationCurve(JSONObject obj){
-		AnimationCurve a = new AnimationCurve();
-		if(obj.HasField("keys")){
-			JSONObject keys = obj.GetField("keys");
-			for(int i =0; i < keys.list.Count;i++){
-				a.AddKey(ToKeyframe(keys[i]));
-			}
+
+		public static Vector3 ToVector3(this JSONObject jsonObject) {
+			var x = jsonObject["x"] ? jsonObject["x"].floatValue : 0;
+			var y = jsonObject["y"] ? jsonObject["y"].floatValue : 0;
+			var z = jsonObject["z"] ? jsonObject["z"].floatValue : 0;
+			return new Vector3(x, y, z);
 		}
-		if(obj.HasField("preWrapMode"))
-			a.preWrapMode = (WrapMode)((int)obj.GetField("preWrapMode").n);
-		if(obj.HasField("postWrapMode"))
-			a.postWrapMode = (WrapMode)((int)obj.GetField("postWrapMode").n);
-		return a;
-	}
-	
-	public static JSONObject FromAnimationCurve(AnimationCurve a){
-		JSONObject result = JSONObject.obj;
-		result.AddField("preWrapMode", a.preWrapMode.ToString()); 
-		result.AddField("postWrapMode", a.postWrapMode.ToString()); 
-		if(a.keys.Length > 0){
-			JSONObject keysJSON = JSONObject.Create();
-			for(int i =0; i < a.keys.Length;i++){
-				keysJSON.Add(FromKeyframe(a.keys[i]));
-			}
-			result.AddField("keys", keysJSON);
+
+		public static JSONObject ToJson(this Vector3 vector) {
+			return vector.FromVector3();
 		}
-		return result;
+
+		/*
+		 * Vector4
+		 */
+		public static JSONObject FromVector4(this Vector4 vector) {
+			var jsonObject = JSONObject.emptyObject;
+			if (vector.x != 0) jsonObject.AddField("x", vector.x);
+			if (vector.y != 0) jsonObject.AddField("y", vector.y);
+			if (vector.z != 0) jsonObject.AddField("z", vector.z);
+			if (vector.w != 0) jsonObject.AddField("w", vector.w);
+			return jsonObject;
+		}
+
+		public static Vector4 ToVector4(this JSONObject jsonObject) {
+			var x = jsonObject["x"] ? jsonObject["x"].floatValue : 0;
+			var y = jsonObject["y"] ? jsonObject["y"].floatValue : 0;
+			var z = jsonObject["z"] ? jsonObject["z"].floatValue : 0;
+			var w = jsonObject["w"] ? jsonObject["w"].floatValue : 0;
+			return new Vector4(x, y, z, w);
+		}
+
+		public static JSONObject ToJson(this Vector4 vector) {
+			return vector.FromVector4();
+		}
+
+		/*
+		 * Matrix4x4
+		 */
+		// ReSharper disable once InconsistentNaming
+		public static JSONObject FromMatrix4x4(this Matrix4x4 matrix) {
+			var jsonObject = JSONObject.emptyObject;
+			if (matrix.m00 != 0) jsonObject.AddField("m00", matrix.m00);
+			if (matrix.m01 != 0) jsonObject.AddField("m01", matrix.m01);
+			if (matrix.m02 != 0) jsonObject.AddField("m02", matrix.m02);
+			if (matrix.m03 != 0) jsonObject.AddField("m03", matrix.m03);
+			if (matrix.m10 != 0) jsonObject.AddField("m10", matrix.m10);
+			if (matrix.m11 != 0) jsonObject.AddField("m11", matrix.m11);
+			if (matrix.m12 != 0) jsonObject.AddField("m12", matrix.m12);
+			if (matrix.m13 != 0) jsonObject.AddField("m13", matrix.m13);
+			if (matrix.m20 != 0) jsonObject.AddField("m20", matrix.m20);
+			if (matrix.m21 != 0) jsonObject.AddField("m21", matrix.m21);
+			if (matrix.m22 != 0) jsonObject.AddField("m22", matrix.m22);
+			if (matrix.m23 != 0) jsonObject.AddField("m23", matrix.m23);
+			if (matrix.m30 != 0) jsonObject.AddField("m30", matrix.m30);
+			if (matrix.m31 != 0) jsonObject.AddField("m31", matrix.m31);
+			if (matrix.m32 != 0) jsonObject.AddField("m32", matrix.m32);
+			if (matrix.m33 != 0) jsonObject.AddField("m33", matrix.m33);
+			return jsonObject;
+		}
+
+		// ReSharper disable once InconsistentNaming
+		public static Matrix4x4 ToMatrix4x4(this JSONObject jsonObject) {
+			var matrix = new Matrix4x4();
+			if (jsonObject["m00"]) matrix.m00 = jsonObject["m00"].floatValue;
+			if (jsonObject["m01"]) matrix.m01 = jsonObject["m01"].floatValue;
+			if (jsonObject["m02"]) matrix.m02 = jsonObject["m02"].floatValue;
+			if (jsonObject["m03"]) matrix.m03 = jsonObject["m03"].floatValue;
+			if (jsonObject["m10"]) matrix.m10 = jsonObject["m10"].floatValue;
+			if (jsonObject["m11"]) matrix.m11 = jsonObject["m11"].floatValue;
+			if (jsonObject["m12"]) matrix.m12 = jsonObject["m12"].floatValue;
+			if (jsonObject["m13"]) matrix.m13 = jsonObject["m13"].floatValue;
+			if (jsonObject["m20"]) matrix.m20 = jsonObject["m20"].floatValue;
+			if (jsonObject["m21"]) matrix.m21 = jsonObject["m21"].floatValue;
+			if (jsonObject["m22"]) matrix.m22 = jsonObject["m22"].floatValue;
+			if (jsonObject["m23"]) matrix.m23 = jsonObject["m23"].floatValue;
+			if (jsonObject["m30"]) matrix.m30 = jsonObject["m30"].floatValue;
+			if (jsonObject["m31"]) matrix.m31 = jsonObject["m31"].floatValue;
+			if (jsonObject["m32"]) matrix.m32 = jsonObject["m32"].floatValue;
+			if (jsonObject["m33"]) matrix.m33 = jsonObject["m33"].floatValue;
+			return matrix;
+		}
+
+		public static JSONObject ToJson(this Matrix4x4 matrix) {
+			return matrix.FromMatrix4x4();
+		}
+
+		/*
+		 * Quaternion
+		 */
+		public static JSONObject FromQuaternion(this Quaternion quaternion) {
+			var jsonObject = JSONObject.emptyObject;
+			if (quaternion.w != 0) jsonObject.AddField("w", quaternion.w);
+			if (quaternion.x != 0) jsonObject.AddField("x", quaternion.x);
+			if (quaternion.y != 0) jsonObject.AddField("y", quaternion.y);
+			if (quaternion.z != 0) jsonObject.AddField("z", quaternion.z);
+			return jsonObject;
+		}
+
+		public static Quaternion ToQuaternion(this JSONObject jsonObject) {
+			var x = jsonObject["x"] ? jsonObject["x"].floatValue : 0;
+			var y = jsonObject["y"] ? jsonObject["y"].floatValue : 0;
+			var z = jsonObject["z"] ? jsonObject["z"].floatValue : 0;
+			var w = jsonObject["w"] ? jsonObject["w"].floatValue : 0;
+			return new Quaternion(x, y, z, w);
+		}
+
+		public static JSONObject ToJson(this Quaternion quaternion) {
+			return quaternion.FromQuaternion();
+		}
+
+		/*
+		 * Color
+		 */
+		public static JSONObject FromColor(this Color color) {
+			var jsonObject = JSONObject.emptyObject;
+			if (color.r != 0) jsonObject.AddField("r", color.r);
+			if (color.g != 0) jsonObject.AddField("g", color.g);
+			if (color.b != 0) jsonObject.AddField("b", color.b);
+			if (color.a != 0) jsonObject.AddField("a", color.a);
+			return jsonObject;
+		}
+
+		public static Color ToColor(this JSONObject jsonObject) {
+			var color = new Color();
+			for (var i = 0; i < jsonObject.count; i++) {
+				switch (jsonObject.keys[i]) {
+					case "r":
+						color.r = jsonObject[i].floatValue;
+						break;
+					case "g":
+						color.g = jsonObject[i].floatValue;
+						break;
+					case "b":
+						color.b = jsonObject[i].floatValue;
+						break;
+					case "a":
+						color.a = jsonObject[i].floatValue;
+						break;
+				}
+			}
+
+			return color;
+		}
+
+		public static JSONObject ToJson(this Color color) {
+			return color.FromColor();
+		}
+
+		/*
+		 * Layer Mask
+		 */
+		public static JSONObject FromLayerMask(this LayerMask layerMask) {
+			var jsonObject = JSONObject.emptyObject;
+			jsonObject.AddField("value", layerMask.value);
+			return jsonObject;
+		}
+
+		public static LayerMask ToLayerMask(this JSONObject jsonObject) {
+			var layerMask = new LayerMask { value = jsonObject["value"].intValue };
+			return layerMask;
+		}
+
+		public static JSONObject ToJson(this LayerMask layerMask) {
+			return layerMask.FromLayerMask();
+		}
+
+		/*
+		 * Rect
+		 */
+		public static JSONObject FromRect(this Rect rect) {
+			var jsonObject = JSONObject.emptyObject;
+			if (rect.x != 0) jsonObject.AddField("x", rect.x);
+			if (rect.y != 0) jsonObject.AddField("y", rect.y);
+			if (rect.height != 0) jsonObject.AddField("height", rect.height);
+			if (rect.width != 0) jsonObject.AddField("width", rect.width);
+			return jsonObject;
+		}
+
+		public static Rect ToRect(this JSONObject jsonObject) {
+			var rect = new Rect();
+			for (var i = 0; i < jsonObject.count; i++) {
+				switch (jsonObject.keys[i]) {
+					case "x":
+						rect.x = jsonObject[i].floatValue;
+						break;
+					case "y":
+						rect.y = jsonObject[i].floatValue;
+						break;
+					case "height":
+						rect.height = jsonObject[i].floatValue;
+						break;
+					case "width":
+						rect.width = jsonObject[i].floatValue;
+						break;
+				}
+			}
+
+			return rect;
+		}
+
+		public static JSONObject ToJson(this Rect rect) {
+			return rect.FromRect();
+		}
+
+		/*
+		* Rect Offset
+		 */
+		public static JSONObject FromRectOffset(this RectOffset rectOffset) {
+			var jsonObject = JSONObject.emptyObject;
+			if (rectOffset.bottom != 0) jsonObject.AddField("bottom", rectOffset.bottom);
+			if (rectOffset.left != 0) jsonObject.AddField("left", rectOffset.left);
+			if (rectOffset.right != 0) jsonObject.AddField("right", rectOffset.right);
+			if (rectOffset.top != 0) jsonObject.AddField("top", rectOffset.top);
+			return jsonObject;
+		}
+
+		public static RectOffset ToRectOffset(this JSONObject jsonObject) {
+			var rectOffset = new RectOffset();
+			for (var i = 0; i < jsonObject.count; i++) {
+				switch (jsonObject.keys[i]) {
+					case "bottom":
+						rectOffset.bottom = jsonObject[i].intValue;
+						break;
+					case "left":
+						rectOffset.left = jsonObject[i].intValue;
+						break;
+					case "right":
+						rectOffset.right = jsonObject[i].intValue;
+						break;
+					case "top":
+						rectOffset.top = jsonObject[i].intValue;
+						break;
+				}
+			}
+
+			return rectOffset;
+		}
+
+		public static JSONObject ToJson(this RectOffset rectOffset) {
+			return rectOffset.FromRectOffset();
+		}
 	}
-	
-	public static Keyframe ToKeyframe(JSONObject obj){
-		Keyframe k = new Keyframe(obj.HasField("time")? obj.GetField("time").n : 0, obj.HasField("value")? obj.GetField("value").n : 0);
-		if(obj.HasField("inTangent")) k.inTangent = obj.GetField("inTangent").n;
-		if(obj.HasField("outTangent")) k.outTangent = obj.GetField("outTangent").n;
-		if(obj.HasField("tangentMode")) k.tangentMode = (int)obj.GetField("tangentMode").n;
-		
-		return k;
-	}
-	public static JSONObject FromKeyframe(Keyframe k){
-		JSONObject result = JSONObject.obj;
-		if(k.inTangent != 0)	result.AddField("inTangent", k.inTangent);
-		if(k.outTangent != 0)	result.AddField("outTangent", k.outTangent);
-		if(k.tangentMode != 0)	result.AddField("tangentMode", k.tangentMode);
-		if(k.time != 0)	result.AddField("time", k.time);
-		if(k.value != 0)	result.AddField("value", k.value);
-		return result;
-	}
-	
 }

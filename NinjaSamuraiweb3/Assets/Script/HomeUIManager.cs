@@ -6,6 +6,7 @@ using UnityEngine.UI;
 //using UnityEngine.Advertisements;
 using UnityEngine.Networking;
 using System.Text.RegularExpressions;
+using Defective.JSON;
 
 
 #if UNITY_IOS
@@ -413,15 +414,15 @@ public class HomeUIManager : MonoBehaviour
 
         JSONObject j = new JSONObject(restoreDatastring);
 
-        string newValueK = Regex.Unescape(j.GetField("data").str);
+        string newValueK = Regex.Unescape(j.GetField("data").stringValue);
         JSONObject k = new JSONObject(newValueK);
 
         for (int i = 0; i < k.list.Count; i++)
         {
             string key = (string)k.keys[i];
             JSONObject jo = (JSONObject)k.list[i];
-            Debug.Log(key + " and " + int.Parse(jo.str));
-            PlayerPrefs.SetInt(key, int.Parse(jo.str));
+            Debug.Log(key + " and " + int.Parse(jo.stringValue));
+            PlayerPrefs.SetInt(key, int.Parse(jo.stringValue));
         }
 
         PlayerPrefs.Save();
@@ -435,7 +436,7 @@ public class HomeUIManager : MonoBehaviour
     IEnumerator registerUser()
     {
         //get data and convert to json
-        JSONObject j = new JSONObject(JSONObject.Type.OBJECT);
+        JSONObject j = new JSONObject(JSONObject.Type.Object);
         // hats saving on server
         j.AddField("Bamboo", PlayerPrefs.GetInt("Bamboo", 0).ToString());
         j.AddField("Sherlock", PlayerPrefs.GetInt("Sherlock", 0).ToString());
@@ -579,7 +580,7 @@ public class HomeUIManager : MonoBehaviour
     IEnumerator updateData()
     {
         //get data and convert to json
-        JSONObject j = new JSONObject(JSONObject.Type.OBJECT);
+        JSONObject j = new JSONObject(JSONObject.Type.Object);
         // hats saving on server
         j.AddField("Bamboo", PlayerPrefs.GetInt("Bamboo", 0).ToString());
         j.AddField("Sherlock", PlayerPrefs.GetInt("Sherlock", 0).ToString());
