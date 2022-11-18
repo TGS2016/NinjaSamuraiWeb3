@@ -444,13 +444,43 @@ public class LocalData
 
     public int AchievementHeadshot=0;
 
-    public int NinjaCap = 0;
+    
     public int Weapon=0;
 
     public int Hat = 0;
     public int HighScore = 0;
 
     public int MaxHitPoint=10;
+
+
+    public int Bamboo = 0;
+    public int Sherlock = 0;
+    public int Pirate1 =0;
+     public int Pirate2 = 0;
+    public int Topper = 0;
+    public int Cowboy = 0;
+    public int Army1 = 0;
+    public int Army2 = 0;
+    public int Wizard = 0;
+    public int Samurai = 0;
+    public int NinjaCap = 0;
+
+
+    public int W_4EdgeStar;
+    public int W_5EdgeStar;
+    public int W_6EdgeStar;
+    public int W_8EdgeStar;
+    public int SpikedBall;
+    public int RangedSpike;
+    public int RangedNeedle;
+    public int Torpedo;
+    public int Sai;
+    public int Kunai;
+    public int Knife;
+
+
+   
+
     public LocalData()
     {
         name = "Player";
@@ -470,13 +500,24 @@ public class LocalData
 
 
         AchievementHeadshot = 0;
-        NinjaCap = 0;
+
         Weapon = 0;
 
         Hat = 0;
         HighScore = 0;
 
         MaxHitPoint = 10;
+
+        Bamboo = 0;
+        Sherlock = 0;
+        Pirate1 = 0;
+        Pirate2 = 0;
+        Topper = 0;
+        Cowboy = 0;
+        Army1 = 0;
+        Army2 = 0;
+        Samurai = 0;
+        NinjaCap = 0;
     }
 
 }

@@ -79,25 +79,25 @@ public class BuyHat : MonoBehaviour {
 			audioManager.instance.PlaySound ("MoneySpend");
 			//buy the hat based on prefs value
 			if (prefs == "Bamboo")
-				PlayerPrefs.SetInt ("Bamboo", 1);
+				data.Bamboo = 1;
 			else if (prefs == "Sherlock")
-				PlayerPrefs.SetInt ("Sherlock", 1);
+				data.Sherlock= 1;
 			else if (prefs == "Pirate1")
-				PlayerPrefs.SetInt ("Pirate1", 1);
+				data.Pirate1 = 1;
 			else if (prefs == "Pirate2")
-				PlayerPrefs.SetInt ("Pirate2", 1);
+				data.Pirate2 = 1;
 			else if (prefs == "Topper")
-				PlayerPrefs.SetInt ("Topper", 1);
+				data.Topper = 1;
 			else if (prefs == "Cowboy")
-				PlayerPrefs.SetInt ("Cowboy", 1);
+				data.Cowboy = 1;
 			else if (prefs == "Army1")
-				PlayerPrefs.SetInt ("Army1", 1);
+				data.Army1 = 1;
 			else if (prefs == "Army2")
-				PlayerPrefs.SetInt ("Army2", 1);
+				data.Army2 = 1;
 			else if (prefs == "Wizard")
-				PlayerPrefs.SetInt ("Wizard", 1);
+				data.Wizard = 1;
 			else if (prefs == "Samurai")
-				PlayerPrefs.SetInt ("Samurai", 1);
+				data.Samurai = 1;
 			//set bought hat as default hat
 
 			data.Hat = value;

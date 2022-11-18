@@ -113,27 +113,27 @@ public class BuyWeapon : MonoBehaviour {
 			audioManager.instance.PlaySound ("MoneySpend");
 
 			if (prefs == "4EdgeStar")
-				PlayerPrefs.SetInt ("4EdgeStar", 1);
+				data.W_4EdgeStar = 1;
 			else if (prefs == "5EdgeStar")
-				PlayerPrefs.SetInt ("5EdgeStar", 1);
+				data.W_5EdgeStar = 1;
 			else if (prefs == "6EdgeStar")
-				PlayerPrefs.SetInt ("6EdgeStar", 1);
+				data.W_6EdgeStar = 1;
 			else if (prefs == "8EdgeStar")
-				PlayerPrefs.SetInt ("8EdgeStar", 1);
+				data.W_8EdgeStar = 1;
 			else if (prefs == "SpikedBall")
-				PlayerPrefs.SetInt ("SpikedBall", 1);
+				data.SpikedBall = 1;
 			else if (prefs == "RangedSpike")
-				PlayerPrefs.SetInt ("RangedSpike", 1);
+				data.RangedSpike = 1;
 			else if (prefs == "RangedNeedle")
-				PlayerPrefs.SetInt ("RangedNeedle", 1);
+				data.RangedNeedle = 1;
 			else if (prefs == "Torpedo")
-				PlayerPrefs.SetInt ("Torpedo", 1);
+				data.Torpedo = 1;
 			else if (prefs == "Sai")
-				PlayerPrefs.SetInt ("Sai", 1);
+				data.Sai = 1;
 			else if (prefs == "Kunai")
-				PlayerPrefs.SetInt ("Kunai", 1);
+				data.Kunai = 1;
 			else if (prefs == "Knife")
-				PlayerPrefs.SetInt ("Knife", 1);
+				data.Knife = 1;
 
 			//set the bought weapon as default weapon
 			data.Weapon = value;

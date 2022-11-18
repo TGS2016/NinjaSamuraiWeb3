@@ -37,10 +37,18 @@ public class HelmetSelection : MonoBehaviour {
 		//Array.Clear(BuyBtns, 0, BuyBtns.Length);
 	}
 
+	bool first = true;
 	void OnEnable(){
 		
 		gold ();
 
+		if (first)
+		{
+			first = false;
+			return;
+		}
+
+		btnVisibility();
 
 
 	}
@@ -158,37 +166,40 @@ public class HelmetSelection : MonoBehaviour {
 	//check the prefs values and based on that enable or disable the buy button
 	public void btnVisibility()	
 	{
-		IsHatUnlocked = PlayerPrefs.GetInt ("Bamboo",0);
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
+		IsHatUnlocked = data.Bamboo;
 		setVisibility (0);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Sherlock",0);
+		IsHatUnlocked = data.Sherlock;
 		setVisibility (1);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Pirate1",0);
+		IsHatUnlocked = data.Pirate1;
 		setVisibility (2);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Pirate2",0);
+		IsHatUnlocked = data.Pirate2;
 		setVisibility (3);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Topper",0);
+		IsHatUnlocked = data.Topper;
 		setVisibility (4);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Cowboy",0);
+		IsHatUnlocked = data.Cowboy;
 		setVisibility (5);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Army1",0);
+		IsHatUnlocked = data.Army1;
 		setVisibility (6);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Army2",0);
+		IsHatUnlocked = data.Army2;
 		setVisibility (7);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Wizard",0);
+		IsHatUnlocked = data.Wizard;
 		setVisibility (8);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("Samurai",0);
+		IsHatUnlocked = data.Samurai;
 		setVisibility (9);
 
-		IsHatUnlocked = PlayerPrefs.GetInt ("NinjaCap",0);
+		IsHatUnlocked = data.NinjaCap;
 
 		if (IsHatUnlocked == 1) 
 		{

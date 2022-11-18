@@ -37,10 +37,16 @@ public class WeaponSelection : MonoBehaviour {
 		//Array.Clear(BuyBtns, 0, BuyBtns.Length);
 	}
 
-
+	bool first = true;
 	void OnEnable(){
 		gold ();
 
+        if (first)
+        {
+			first = false;
+			return;
+        }
+		btnVisibility();
 
 
 	}
@@ -185,40 +191,45 @@ public class WeaponSelection : MonoBehaviour {
 
 	public void btnVisibility()	
 	{
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("4EdgeStar",0);
+
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
+
+		IsWeaponUnlocked = data.W_4EdgeStar;
 		setVisibility (0);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("5EdgeStar",0);
+		IsWeaponUnlocked = data.W_5EdgeStar;
 		setVisibility (1);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("6EdgeStar",0);
+		IsWeaponUnlocked = data.W_6EdgeStar;
 		setVisibility (2);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("8EdgeStar",0);
+		IsWeaponUnlocked = data.W_8EdgeStar;
 		setVisibility (3);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("SpikedBall",0);
+		IsWeaponUnlocked = data.SpikedBall;
 		setVisibility (4);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("RangedSpike",0);
+		IsWeaponUnlocked = data.RangedSpike;
 		setVisibility (5);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("RangedNeedle",0);
+		IsWeaponUnlocked = data.RangedNeedle;
 		setVisibility (6);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("Torpedo",0);
+		IsWeaponUnlocked = data.Torpedo;
 		setVisibility (7);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("Sai",0);
+		IsWeaponUnlocked = data.Sai;
 		setVisibility (8);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("Kunai",0);
+		IsWeaponUnlocked = data.Kunai;
 		setVisibility (9);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("Knife",0);
+		IsWeaponUnlocked = data.Knife;
 		setVisibility (10);
 
-		IsWeaponUnlocked = PlayerPrefs.GetInt ("ColdSteel4EdgeStar",0);
+		IsWeaponUnlocked = data.ColdSteel4EdgeStar;
 
 		if (IsWeaponUnlocked == 1) {
 			unlockTxt.gameObject.SetActive (false);
