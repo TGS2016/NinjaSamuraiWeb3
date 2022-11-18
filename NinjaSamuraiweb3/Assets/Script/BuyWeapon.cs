@@ -7,7 +7,7 @@ public class BuyWeapon : MonoBehaviour {
 
 	public GameObject NotEnoughMOneyUI, DiscriptionPanel,WeaponPanel;
 
-	public Text MoneyTxt, WeaponCostTxt, DamageTxt, RespawnTxt;
+	public Text  WeaponCostTxt, DamageTxt, RespawnTxt;
 
 	int money, cost, value;
 	string prefs;
@@ -15,24 +15,14 @@ public class BuyWeapon : MonoBehaviour {
 
 	void Start ()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+
 		//display the total gold
-		money = PlayerPrefs.GetInt ("Money", 50);
-		MoneyTxt.text = money.ToString ();
+		money = data.coins;
+
+		Web3_UIManager.Instance.SetCoinText();
 	}
 
-	#if UNITY_ANDROID
-	void Update()
-	{
-		if (Input.GetKeyDown (KeyCode.Escape)) 
-		{
-			if (NotEnoughMOneyUI.activeSelf) {
-				CloseBtn ();
-				return;
-			} else
-				CancelBtn ();
-		}
-	}
-	#endif
 
 	//set the cost and PlayerPrefs value of the weapon
 	public void setCostandVale (int weaponCost,int Value)
@@ -114,9 +104,12 @@ public class BuyWeapon : MonoBehaviour {
 		else 
 		{
 			//Subtract the Money based on weapon cost
+			LocalData data = DatabaseManager.Instance.GetLocalData();
+			data.coins -= cost;
 			money -= cost;
-			PlayerPrefs.SetInt ("Money", money);
-			MoneyTxt.text = "" + money;
+		
+			Web3_UIManager.Instance.SetCoinText();
+
 			audioManager.instance.PlaySound ("MoneySpend");
 
 			if (prefs == "4EdgeStar")
@@ -141,8 +134,10 @@ public class BuyWeapon : MonoBehaviour {
 				PlayerPrefs.SetInt ("Kunai", 1);
 			else if (prefs == "Knife")
 				PlayerPrefs.SetInt ("Knife", 1);
+
 			//set the bought weapon as default weapon
-			PlayerPrefs.SetInt ("Weapon",value);
+			data.Weapon = value;
+			DatabaseManager.Instance.UpdateData(data);
 
 			WeaponPanel.SetActive (true);
 			DiscriptionPanel.SetActive (true);

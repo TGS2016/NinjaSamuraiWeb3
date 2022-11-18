@@ -189,7 +189,12 @@ public class Manager : MonoBehaviour {
 	//initiate the hat
 	void initiateHat()
 	{
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+		
 		int index = PlayerPrefs.GetInt("Hat", 0);
+
+		if (data != null)
+			index = data.Hat;
 
 		//PlayerPrefs.SetInt ("Hat",12);
 		//index = PlayerPrefs.GetInt("Hat");

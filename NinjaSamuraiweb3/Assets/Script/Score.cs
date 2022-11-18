@@ -10,6 +10,7 @@ public class Score : MonoBehaviour
     public static int score, moneyIncrement;
 
     public GameObject LevelCompleteUI, LCPanel, Devil;
+    [SerializeField] GameObject claimTokenBTN;
 
     //UI Texts
     public Slider HealthBar;
@@ -20,13 +21,16 @@ public class Score : MonoBehaviour
 
     void Start()
     {
+        LocalData data = DatabaseManager.Instance.GetLocalData();
+        if (data == null) return;
+
         //default score 0
         score = 0;
         //sets score text to 0 at start
         scoreTxt.text = "Kill : " + score;
         //sets Money text stored in prefs
-        moneyTxt.text = "" + PlayerPrefs.GetInt("Money");
-        HealthBar.maxValue = PlayerPrefs.GetInt("MaxHitPoint", 10);
+        Web3_UIManager.Instance.SetCoinText();
+        HealthBar.maxValue = data.MaxHitPoint;
         HealthBar.value = HealthBar.maxValue;
 
         setLevel();
@@ -37,10 +41,12 @@ public class Score : MonoBehaviour
 
     public void UpdateScore()
     {
+        LocalData data = DatabaseManager.Instance.GetLocalData();
+        if (data == null) return;
         //updates the score txt
         scoreTxt.text = "Kill : " + score;
         //updates the money txt
-        moneyTxt.text = "" + PlayerPrefs.GetInt("Money", 50);
+        Web3_UIManager.Instance.SetCoinText();
 
         moneyIncrementTxt.text = "+" + moneyIncrement;
         moneyIncrementTxt.gameObject.SetActive(true);
@@ -51,9 +57,14 @@ public class Score : MonoBehaviour
 
         Invoke("disableIncreamentTxt", 1.3f);
 
+
+       
         //if current score is greater than all time best score than is stored as new all time best score
-        if (PlayerPrefs.GetInt("HighScore", 0) < score)
-            PlayerPrefs.SetInt("HighScore", score);
+        if (data.HighScore < score)
+        {
+            data.HighScore = score;
+            DatabaseManager.Instance.UpdateData(data);
+        }
 
     }
 
@@ -82,14 +93,22 @@ public class Score : MonoBehaviour
 
     void setLevel()
     {
+        LocalData data= DatabaseManager.Instance.GetLocalData();
+        HealthBar.maxValue = PlayerPrefs.GetInt("MaxHitPoint", 10);
+
         level = PlayerPrefs.GetInt("Level", 1);
-        audioManager.instance.LogScreen("Level : " + level);
+        if (data != null)
+        {
+            level = data.Level;
+            HealthBar.maxValue = data.MaxHitPoint;
+        }
+        //audioManager.instance.LogScreen("Level : " + level);
         LevelTxt.text = "LEVEL : " + level;
 
         //if (level % 5 == 0) {
         //	HealthBar.maxValue += 1;
         //}
-        HealthBar.maxValue = PlayerPrefs.GetInt("MaxHitPoint", 10);
+       
         UpdateHealth();
     }
 
@@ -143,21 +162,30 @@ public class Score : MonoBehaviour
 
     void updateLevel()
     {
+        LocalData data = DatabaseManager.Instance.GetLocalData();
+
         level += 1;
-        PlayerPrefs.SetInt("Level", level);
+
+        
+        data.Level += 1;
+      
         //PlayerPrefs.SetInt ("TargetKill",PlayerPrefs.GetInt ("Level") *(int) 3);
 
         setLevel();
         setTarget();
 
         if (level % 5 == 0)
-            PlayerPrefs.SetInt("MaxHitPoint", PlayerPrefs.GetInt("MaxHitPoint", 10) + 1);
+        {
+            data.MaxHitPoint+= 1;
+        }
+        DatabaseManager.Instance.UpdateData(data);
 
         Manager.State = Manager.gameState.LEVELUPGRADE;
         Manager.Stage = 1;
         Manager.NumOfEnemy = 1;
 
         LevelCompleteUI.SetActive(true);
+        claimTokenBTN.SetActive(true);
 
         Invoke("DisableScoreUI", 0.7f);
 

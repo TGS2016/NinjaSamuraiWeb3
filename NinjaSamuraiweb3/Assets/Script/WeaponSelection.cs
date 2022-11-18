@@ -59,8 +59,18 @@ public class WeaponSelection : MonoBehaviour {
 		for (int i = 0; i < SelectBtns.Length; i++) 
 				SelectBtns [i].GetComponentInChildren<Text> ().text = "Select";
 
+
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+
+
 		//Than Selected weapon's text is set to Selected
 		int selectedWeapon = PlayerPrefs.GetInt ("Weapon",0);
+
+		if(data!= null)
+        {
+			selectedWeapon = data.Weapon;
+
+		}
 
 		if (selectedWeapon == 0) 
 		{
@@ -262,6 +272,6 @@ public class WeaponSelection : MonoBehaviour {
 
 	public void gold()
 	{
-		moneyTxt.text = "" + PlayerPrefs.GetInt ("Money", 50);
+		Web3_UIManager.Instance.SetCoinText();
 	}
 }

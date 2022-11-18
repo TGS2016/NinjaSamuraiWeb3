@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager insta;
     public GameObject PauseUI, GameOverUI, SettingsUI, ScoreUI, LevelCompleteUI, SkippedPanel, FailedPanel, CanNotContinuePanel, Ninja;
+    [SerializeField] GameObject claimTokenBTN;
 
     public Text HighScoreTxt, ScoreTxt;
 
@@ -83,8 +84,14 @@ public class UIManager : MonoBehaviour
         //if GameOver
         if (Manager.State == Manager.gameState.GAMEOVER)
         {
+            LocalData data = DatabaseManager.Instance.GetLocalData();
+            
+
             ScoreUI.SetActive(false);
-            HighScoreTxt.text = "Best : " + PlayerPrefs.GetInt("HighScore", 0);
+            if (data != null)
+            {
+                HighScoreTxt.text = "Best : " + data.HighScore;
+            }
             ScoreTxt.text = "Score : " + Score.score;
             GameOverUI.SetActive(true);
 

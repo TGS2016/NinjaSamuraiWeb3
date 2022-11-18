@@ -14,6 +14,9 @@ public class EnemyHealth : MonoBehaviour {
 
 	public void fall()
 	{
+
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
 		//increase the kill
 		Score.score += 1;
 
@@ -21,23 +24,27 @@ public class EnemyHealth : MonoBehaviour {
 		//increase the money
 		if (headShot)
 		{
-			money = PlayerPrefs.GetInt ("Money", 50) + 10;
+
+			money =data.coins = data.coins+ 10;
 			Score.moneyIncrement = 10;
 			GameObject.Find ("ScoreUI").GetComponent<Score> ().updateTargetHeadShot ();
 			GameObject.Find ("ScoreUI").GetComponent<Score> ().updateTargetKill ();
-			PlayerPrefs.SetInt ("AchievementHeadshot",PlayerPrefs.GetInt("AchievementHeadshot",0) + 1);
-			PlayerPrefs.SetInt ("AchievementKill",PlayerPrefs.GetInt("AchievementKill",0) + 1);
+			data.AchievementHeadshot += 1;
+			data.AchievementKill += 1;
+
+			
 		}
 		else 
 		{
-			money = PlayerPrefs.GetInt ("Money", 50) + 5;
+			money = data.coins = data.coins + 5;
 			Score.moneyIncrement = 5;
 			GameObject.Find ("ScoreUI").GetComponent<Score> ().updateTargetKill ();
-			PlayerPrefs.SetInt ("AchievementKill",PlayerPrefs.GetInt("AchievementKill",0) + 1);
+			data.AchievementKill += 1;
+			
 		}
 
-		//store money in player pref
-		PlayerPrefs.SetInt ("Money",money);
+		DatabaseManager.Instance.UpdateData(data);
+		
 
 		GameObject.Find ("ScoreUI").GetComponent<Score> ().UpdateScore ();
 

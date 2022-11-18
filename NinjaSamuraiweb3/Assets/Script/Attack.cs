@@ -73,21 +73,26 @@ public class Attack : MonoBehaviour {
 	//respawn dealay of weapons
 	void setFireRate ()
 	{
-		int index = PlayerPrefs.GetInt ("Weapon", 0);
-		if (index < 5)
-			respawnRate = 0.6f;
-		else if (index == 5)
-			respawnRate = 0.7f;
-		else if (index == 6 || index == 7)
-			respawnRate = 0.5f;
-		else if (index == 8)
-			respawnRate = 0.4f;
-		else if (index == 9 || index == 10)
-			respawnRate = 0.3f;
-		else if (index == 11)
-			respawnRate = 0.2f;
-		else if (index == 12)
-			respawnRate = 0.4f;
+		if (DatabaseManager.Instance.GetLocalData() != null)
+		{
+			LocalData data = DatabaseManager.Instance.GetLocalData();
+
+			int index = data.Weapon;
+			if (index < 5)
+				respawnRate = 0.6f;
+			else if (index == 5)
+				respawnRate = 0.7f;
+			else if (index == 6 || index == 7)
+				respawnRate = 0.5f;
+			else if (index == 8)
+				respawnRate = 0.4f;
+			else if (index == 9 || index == 10)
+				respawnRate = 0.3f;
+			else if (index == 11)
+				respawnRate = 0.2f;
+			else if (index == 12)
+				respawnRate = 0.4f;
+		}
 	}
 	//Starts the animation of attack
 	void Shoot ()
@@ -103,6 +108,9 @@ public class Attack : MonoBehaviour {
 
 	void Fire()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
 		//removes the parent because no longer needed to follow firePoint
 		Weapon.transform.SetParent (null);
 		//sets body type to dynamic so force can be applied 
@@ -117,7 +125,7 @@ public class Attack : MonoBehaviour {
 		audioManager.instance.PlaySound ("ThrowingWeapon");
 
 		//if Weapon is star
-		if(PlayerPrefs.GetInt("Weapon",0)<6 || PlayerPrefs.GetInt("Weapon",0)==12)
+		if(data.Weapon<6 || data.Weapon == 12)
 			Weapon.GetComponent<Rigidbody2D> ().AddTorque (-5f);
 
 		//get weapon to attack again
@@ -131,8 +139,10 @@ public class Attack : MonoBehaviour {
 
 	void instantiateWeapon()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
 		//gets the which weapon to instastiate
-		int weaponIndex = PlayerPrefs.GetInt ("Weapon",0);
+		int weaponIndex = data.Weapon;
 
 		//instantiate the weapon
 		Weapon = Instantiate (weapon[weaponIndex],firePoint.position,firePoint.rotation);

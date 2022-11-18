@@ -21,8 +21,19 @@ public class NinjaHealth : MonoBehaviour {
 
 	void Start()
 	{
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+
+		
 		hitPoint = PlayerPrefs.GetInt("MaxHitPoint",10);
-		level = PlayerPrefs.GetInt ("Level",1);
+		level = PlayerPrefs.GetInt("Level", 1);
+		if (data != null)
+        {
+			hitPoint = data.MaxHitPoint;
+			level = data.Level;
+
+
+		}
+		
 		if (level % 7 == 0)
 			hitPoint +=1;
 		GameObject.Find ("ScoreUI").GetComponent<Score> ().UpdateHealth ();

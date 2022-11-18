@@ -7,7 +7,7 @@ public class BuyHat : MonoBehaviour {
 
 	public GameObject NotEnoughMOneyUI, DiscriptionPanel, HatPanel;
 
-	public Text MoneyTxt, HatCostTxt, HitPointTxt;
+	public Text  HatCostTxt, HitPointTxt;
 
 	int money, cost, value;
 	string prefs;
@@ -15,25 +15,15 @@ public class BuyHat : MonoBehaviour {
 	void Start () 
 	{
 		//Display Total Money
-		money = PlayerPrefs.GetInt ("Money",50);
-		MoneyTxt.text = money.ToString();
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
+		
+		money = data.coins;
+		Web3_UIManager.Instance.SetCoinText();
 	}
 
-	#if UNITY_ANDROID
-	void Update()
-	{
-		if (Input.GetKeyDown (KeyCode.Escape))
-		{
-			if (NotEnoughMOneyUI.activeSelf)
-			{
-				CloseBtn ();
-				return;
-			} 
-			else
-				CancelBtn ();
-		}
-	}
-	#endif
+	
 
 	//Set the Cost and the PlayerPrefs value of the Hat
 	public void setCostandVale (int weaponCost,int Value)
@@ -81,8 +71,11 @@ public class BuyHat : MonoBehaviour {
 		{
 			//Subtract money based on hat cost
 			money -= cost;
-			PlayerPrefs.SetInt ("Money", money);
-			MoneyTxt.text = "" + money;
+			LocalData data = DatabaseManager.Instance.GetLocalData();
+			data.coins -= cost;
+			DatabaseManager.Instance.UpdateData(data);
+
+			Web3_UIManager.Instance.SetCoinText();
 			audioManager.instance.PlaySound ("MoneySpend");
 			//buy the hat based on prefs value
 			if (prefs == "Bamboo")
@@ -106,8 +99,9 @@ public class BuyHat : MonoBehaviour {
 			else if (prefs == "Samurai")
 				PlayerPrefs.SetInt ("Samurai", 1);
 			//set bought hat as default hat
-			PlayerPrefs.SetInt ("Hat", value);
-		
+
+			data.Hat = value;
+			DatabaseManager.Instance.UpdateData(data);
 			HatPanel.SetActive(true);
 			DiscriptionPanel.SetActive (true);
 

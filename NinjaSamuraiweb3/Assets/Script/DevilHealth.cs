@@ -9,24 +9,30 @@ public class DevilHealth : MonoBehaviour {
 
 	void Start()
 	{
-		hitPoint = 10 + (int)(PlayerPrefs.GetInt ("Level") / 3);
-		Debug.Log ("Level : " + PlayerPrefs.GetInt ("Level") + "Hit : " + hitPoint);
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
+		hitPoint = 10 + (int)(data.Level / 3);
+		
 	}
 
 	public void fall()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
 		//increase the kill
 		Score.score += 1;
 
 		int money, i;
 		//increase the money
 
-		money = PlayerPrefs.GetInt ("Money", 50) + 15;
+		money = data.coins = data.coins+=15;
 		Score.moneyIncrement = 15;
 		GameObject.Find ("ScoreUI").GetComponent<Score> ().updateTargetKill ();
 
 		//store money in player pref
-		PlayerPrefs.SetInt ("Money",money);
+		
 
 		GameObject.Find ("ScoreUI").GetComponent<Score> ().UpdateScore ();
 
@@ -41,7 +47,7 @@ public class DevilHealth : MonoBehaviour {
 		//disable the attack script of died enemy
 		this.gameObject.GetComponent<DevilAttack> ().enabled = false;
 		//gets all body parts rigidbody
-		Rigidbody2D[] Devil = this.gameObject.GetComponentsInChildren<Rigidbody2D> ();
+		Rigidbody2D[] Devil = this.gameObject.GetComponentsInChildren<Rigidbody2D>();
 
 		//sets all body parts body type to dynamic and gives the force for falling effect
 		for (i = 0; i < Devil.Length; i++) 
@@ -55,6 +61,8 @@ public class DevilHealth : MonoBehaviour {
 		Devil [i-1].AddForce (new Vector2( Random.Range(500f,1000f), Random.Range(500f,1000f)));
 		//at last disable this script as well
 		this.gameObject.GetComponent<DevilHealth> ().enabled = false;
+
+		DatabaseManager.Instance.UpdateData(data);
 	}
 
 }

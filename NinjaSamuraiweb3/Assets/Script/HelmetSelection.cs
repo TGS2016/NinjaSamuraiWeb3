@@ -55,20 +55,26 @@ public class HelmetSelection : MonoBehaviour {
 	//updated the playerprefs of selected hat
 	public void SetHat(int value)
 	{
-		PlayerPrefs.SetInt ("Hat", value);
+		LocalData data= DatabaseManager.Instance.GetLocalData();
+		data.Hat = value;
 		audioManager.instance.PlaySound ("Click");
 		updateSelectedHatTxt ();
+		DatabaseManager.Instance.UpdateData(data);
+
 	}
 	//set the text of selected text and set the text select for other select buttons
 	public void updateSelectedHatTxt()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
+		if (data == null) return;
+
 		Button SelectedHatBtn;
 
 		for (int i = 0; i < SelectBtns.Length; i++) 
 			SelectBtns [i].GetComponentInChildren<Text> ().text = "Select";
 
 		//Than Selected weapon's text is set to Selected
-		int selectedHat = PlayerPrefs.GetInt ("Hat",0);
+		int selectedHat = data.Hat;
 
 		if (selectedHat == 0) 
 		{
@@ -183,6 +189,7 @@ public class HelmetSelection : MonoBehaviour {
 		setVisibility (9);
 
 		IsHatUnlocked = PlayerPrefs.GetInt ("NinjaCap",0);
+
 		if (IsHatUnlocked == 1) 
 		{
 			UnlockTxt.gameObject.SetActive (false);
@@ -211,7 +218,7 @@ public class HelmetSelection : MonoBehaviour {
 	//display gold text
 	public void gold()
 	{
-		moneyTxt.text = "" + PlayerPrefs.GetInt ("Money", 50);
+		Web3_UIManager.Instance.SetCoinText();
 	}
 	//sends the prefs value
 	public void BuyBtn(string prefsKey)

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Text.RegularExpressions;
 using Defective.JSON;
+using System;
 
 
 #if UNITY_IOS
@@ -47,83 +48,47 @@ public class HomeUIManager : MonoBehaviour
     //sets the camera size and background image size based on camera size and display ad banner
     void Start()
     {
+        if (CoreWeb3Manager.Instance)
+        {
+            if (CoreWeb3Manager.Instance.isLogin) OpenMenu();
+        }
         float horizontalResolution = 1920f;
         float currentAspect = (float)Screen.width / (float)Screen.height;
         Camera.main.orthographicSize = horizontalResolution / currentAspect / 200;
 
         SetBackGroundScale();
-        PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money", 50));
-        MoneyTxt.text = "" + PlayerPrefs.GetInt("Money");
 
-        Achievement.instance.SetAchievements();
+
+       
+        Web3_UIManager.Instance.SetCoinText();
+
+     
         checkAchievement();
-
-#if UNITY_ANDROID
-        //Advertisement.Initialize("2888015");
-        logBtn.SetActive(false);
-        RegBtn.SetActive(false);
-        lotOutBtn.SetActive(false);
-#elif UNITY_IOS
-			//Advertisement.Initialize ("2888016");
-			
-#endif
-
-
-
-#if !UNITY_ANDROID
-		if(PlayerPrefs.GetInt ("login", 0) == 1 && !string.IsNullOrEmpty(PlayerPrefs.GetString("uname")) && !string.IsNullOrEmpty(PlayerPrefs.GetString("upass"))) { //skip if older data is available
-			logBtn.SetActive(false);
-			RegBtn.SetActive(false);
-			lotOutBtn.SetActive(true);
-		}else{
-			lotOutBtn.SetActive(false);
-		}
-#endif
+        Achievement.instance.SetAchievements();
 
     }
 
 
 
-#if UNITY_ANDROID
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && RateScreen.activeSelf)
-        {
-            closerateUs();
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && NoAdVideoPanel.activeSelf)
-        {
-            NoAdPanelContinueBtn();
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && StoreUI.activeSelf)
-        {
-            StoreBackBtn();
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Escape) && HomeUI.activeSelf && !RewardPanel.activeSelf)
-        {
-            //audioManager.instance.PlaySound ("Click");
-            Application.Quit();
-            Debug.Log("Quit");
-        }
-    }
-#endif
 
     public void checkAchievement()
     {
-        if ((Achievement.instance.LevelSlider.value >= Achievement.instance.LevelSlider.maxValue && PlayerPrefs.GetInt("LevelAchievement", 0) != 3)
-            || (Achievement.instance.KillSlider.value >= Achievement.instance.KillSlider.maxValue && PlayerPrefs.GetInt("KillAchievement", 0) != 3)
-            || (Achievement.instance.HeadshotSlider.value >= Achievement.instance.HeadshotSlider.maxValue && PlayerPrefs.GetInt("HeadshotAchievement", 0) != 3)
-            || (Achievement.instance.BossKillSlider.value >= Achievement.instance.BossKillSlider.maxValue && PlayerPrefs.GetInt("BossKillAchievement", 0) != 1))
+        LocalData data = DatabaseManager.Instance.GetLocalData();
+        if (data != null)
         {
-            Highlight.GetComponent<CanvasGroup>().alpha = 1;
+            if ((Achievement.instance.LevelSlider.value >= Achievement.instance.LevelSlider.maxValue && data.LevelAchievement != 3)
+                || (Achievement.instance.KillSlider.value >= Achievement.instance.KillSlider.maxValue && data.KillAchievement != 3)
+                || (Achievement.instance.HeadshotSlider.value >= Achievement.instance.HeadshotSlider.maxValue && data.HeadshotAchievement != 3)
+                || (Achievement.instance.BossKillSlider.value >= Achievement.instance.BossKillSlider.maxValue && data.BossKillAchievement != 1))
+            {
+                Highlight.GetComponent<CanvasGroup>().alpha = 1;
+            }
+            else
+            {
+                Highlight.GetComponent<CanvasGroup>().alpha = 0;
+            }
         }
-        else
-        {
-            Highlight.GetComponent<CanvasGroup>().alpha = 0;
-        }
+       
     }
 
     //loads the game scene
@@ -207,7 +172,7 @@ public class HomeUIManager : MonoBehaviour
         audioManager.instance.PlaySound("Click");
         SettingsUI.SetActive(false);
         HomeUI.SetActive(true);
-        MoneyTxt.text = "" + PlayerPrefs.GetInt("Money", 50);
+        Web3_UIManager.Instance.SetCoinText();
     }
     //closes the weapon store and hat store 
     public void BackBtn()
@@ -225,7 +190,7 @@ public class HomeUIManager : MonoBehaviour
         audioManager.instance.PlaySound("Click");
         HomeUI.SetActive(true);
         StoreUI.SetActive(false);
-        MoneyTxt.text = "" + PlayerPrefs.GetInt("Money", 50);
+        Web3_UIManager.Instance.SetCoinText();
         BG.GetComponent<SpriteRenderer>().sprite = BackgroungSprite[0];
         SetBackGroundScale();
     }
@@ -294,7 +259,7 @@ public class HomeUIManager : MonoBehaviour
         audioManager.instance.PlaySound("Click");
         IAPUI.SetActive(false);
         HomeUI.SetActive(true);
-        MoneyTxt.text = "" + PlayerPrefs.GetInt("Money", 50);
+        Web3_UIManager.Instance.SetCoinText();
         Debug.Log("IAP");
         BG.GetComponent<SpriteRenderer>().sprite = BackgroungSprite[0];
     }
@@ -398,14 +363,7 @@ public class HomeUIManager : MonoBehaviour
     // save date
     public void saveData()
     {
-#if !UNITY_ANDROID
-		if(PlayerPrefs.GetInt ("login", 0) == 1 && !string.IsNullOrEmpty(PlayerPrefs.GetString("uname")) && !string.IsNullOrEmpty(PlayerPrefs.GetString("upass"))) { //skip if older data is available
-			//StartCoroutine(UploadData());
-			uname = PlayerPrefs.GetString("uname");
-			upass = PlayerPrefs.GetString("upass");
-			StartCoroutine(updateData());
-		}
-#endif
+        
     }
 
     // restore data
@@ -426,7 +384,7 @@ public class HomeUIManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-        MoneyTxt.text = "" + PlayerPrefs.GetInt("Money", 50);
+        Web3_UIManager.Instance.SetCoinText();
         regScreen.SetActive(false);
         lotOutBtn.SetActive(true);
 
@@ -526,6 +484,23 @@ public class HomeUIManager : MonoBehaviour
                 infoText.text = "Error !\nTry different username.\nThis username already registered.";
                 Debug.Log("Reg Fail");
             }
+        }
+    }
+
+
+    [SerializeField] GameObject[] toEnableObjectsAfterLogin;
+    [SerializeField] GameObject[] toDisableObjectsAfterLogin;
+
+    internal void OpenMenu()
+    {
+        for (int i = 0; i < toEnableObjectsAfterLogin.Length; i++)
+        {
+            toEnableObjectsAfterLogin[i].SetActive(true);
+        }
+
+        for (int i = 0; i < toDisableObjectsAfterLogin.Length; i++)
+        {
+            toDisableObjectsAfterLogin[i].SetActive(false);
         }
     }
 
