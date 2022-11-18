@@ -34,20 +34,20 @@ public class CoreWeb3Manager : MonoBehaviour
 
 
     // address of contract
-    public const string contract = "0xC491885b1855fA2C65b990037Ed36C95e3635464";
-    public const string contractToken = "0x0429ce4914667C4Be391b3e1eCA9243da8aA1921";
+    public const string contract = "0x9985F964d9a39BaC81529bb49af770D1Bbd464dE";//"0xC491885b1855fA2C65b990037Ed36C95e3635464";
+    public const string contractToken = "0xca39deE8Bc83d428aA8C87a26D93798ed92BE243";//"0x0429ce4914667C4Be391b3e1eCA9243da8aA1921";
     public const string contractRandom = "0xff20a0C553B4cd371f7011B4e1432A24Ee04D620";
 
-    const string chain = "polygon";
+   // const string chain = "polygon";
     // set network mainnet, testnet
-    const string network = "testnet";
-    const string chainId = "80001";
-    static string networkRPC= "https://polygontestapi.terminet.io/rpc";
+    //const string network = "testnet";
+    const string chainId = "1313161555";
+    static string networkRPC= "https://testnet.aurora.dev/";
     //const string networkRPC = "https://eth.bd.evmos.dev:8545";
 
 
 
-    public float[] coinCost = { 0.025f, 0.050f, 0.075f, 0.1f, 0.050f };
+    public float[] coinCost = { 0.0001f, 0.0002f, 0.0003f, 0.0004f, 0.0004f };
 
     public static string userBalance = "0";
     public static string userTokenBalance = "0";
@@ -381,7 +381,7 @@ public class CoreWeb3Manager : MonoBehaviour
         string args = Newtonsoft.Json.JsonConvert.SerializeObject(inputParams);
         try
         {
-            string response = await EVM.Call(chain, network, contract, abi, method, args);
+            string response = await EVM.Call("", "", contract, abi, method, args,networkRPC);
             Debug.Log(response);
             return response;
 
@@ -408,7 +408,7 @@ public class CoreWeb3Manager : MonoBehaviour
         Debug.Log("CheckPuzzleList ===================");
         try
         {
-            string response = await EVM.Call(chain, network, contract, abi, method, args, networkRPC);
+            string response = await EVM.Call("", "", contract, abi, method, args, networkRPC);
             Debug.Log("CheckPuzzleList =================== Now");
             Debug.Log(response);
             string[] splitArray = response.Split(char.Parse(",")); //return one word for each string in the array
@@ -441,7 +441,7 @@ public class CoreWeb3Manager : MonoBehaviour
         int skip = 0;
         try
         {
-            string response = await EVM.AllErc1155(chain, network, PlayerPrefs.GetString("Account"), contract, first, skip);
+            string response = await EVM.AllErc1155("", "", PlayerPrefs.GetString("Account"), contract, first, skip);
             // string response = await EVM.BalanceOf(chain, network, PlayerPrefs.GetString("Account"), contract, first, skip);
             Debug.Log(response);
             balanceNFT = response;         
@@ -461,7 +461,7 @@ public class CoreWeb3Manager : MonoBehaviour
         try
         {
 
-            string response = await EVM.BalanceOf(chain, network, PlayerPrefs.GetString("Account"));
+            string response = await EVM.BalanceOf("", "", PlayerPrefs.GetString("Account"),networkRPC);
             if (!string.IsNullOrEmpty(response))
             {
                 float wei = float.Parse(response);
@@ -489,7 +489,7 @@ public class CoreWeb3Manager : MonoBehaviour
     {
         try
         {
-            string txConfirmed = await EVM.TxStatus(chain, network, transID);
+            string txConfirmed = await EVM.TxStatus("", "", transID, networkRPC);
             print(txConfirmed); // success, fail, pending
             if (txConfirmed.Equals("success") || txConfirmed.Equals("fail"))
             {
@@ -514,7 +514,7 @@ public class CoreWeb3Manager : MonoBehaviour
     {
         try
         {
-            string txConfirmed = await EVM.TxStatus(chain, network, Id);
+            string txConfirmed = await EVM.TxStatus("", "", Id, networkRPC);
             print(txConfirmed); // success, fail, pending
             if (txConfirmed.Equals("success") || txConfirmed.Equals("fail"))
             {
@@ -542,7 +542,7 @@ public class CoreWeb3Manager : MonoBehaviour
 
         try
         {
-            string response = await ERC1155.URI(chain, network, contract, "400");
+            string response = await ERC1155.URI("", "", contract, "400",networkRPC);
             Debug.Log(response);
         }
         catch (Exception e)
@@ -745,7 +745,7 @@ public class CoreWeb3Manager : MonoBehaviour
         string args = Newtonsoft.Json.JsonConvert.SerializeObject(inputParams);
         try
         {
-            string response = await EVM.Call(chain, network, contractToken, abiToken, method, args, networkRPC);
+            string response = await EVM.Call("", "", contractToken, abiToken, method, args, networkRPC);
             Debug.Log(response);
             try
             {
@@ -897,7 +897,7 @@ public class CoreWeb3Manager : MonoBehaviour
         string args = Newtonsoft.Json.JsonConvert.SerializeObject(inputParams);
         try
         {
-            string response = await EVM.Call(chain, network, contractRandom, abiRandom, method, args);
+            string response = await EVM.Call("", "", contractRandom, abiRandom, method, args, networkRPC);
             if (response == "0")
             {
                 response = "1";
