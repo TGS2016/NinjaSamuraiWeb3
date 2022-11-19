@@ -20,7 +20,7 @@ public class InstructionManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && InstructionChanged) {
+		if (Input.GetMouseButtonDown(0) && InstructionChanged) {
 			InstructionChanged = false;
 			ChangeInstruction ();
 		}
