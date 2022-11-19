@@ -45,7 +45,7 @@ public class Attack : MonoBehaviour {
 		if((Manager.State == Manager.gameState.PLAY || Manager.State == Manager.gameState.FIRSTTIME) && NinjaHealth.ninjaState == NinjaHealth.NinjaState.ALIVE) 
 		{
 			//increase the speed of throwing weapon
-			#if UNITY_EDITOR
+			#if !UNITY_ANDROID
 			if (Input.GetKey (KeyCode.Mouse0) && fire) 
 			{
 				speed += 2f;
