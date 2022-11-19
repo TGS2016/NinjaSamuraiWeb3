@@ -316,22 +316,22 @@ public class DatabaseManager : MonoBehaviour
         {
             case 0:
                 {
-                    info.coinAmount = 5000;
+                    info.coinAmount = 1000;
                     break;
                 }
             case 1:
                 {
-                    info.coinAmount = 15000;
+                    info.coinAmount = 2000;
                     break;
                 }
             case 2:
                 {
-                    info.coinAmount = 30000;
+                    info.coinAmount = 3000;
                     break;
                 }
             case 3:
                 {
-                    info.coinAmount = 80000;
+                    info.coinAmount = 5000;
                     break;
                 }
         }
@@ -344,23 +344,23 @@ public class DatabaseManager : MonoBehaviour
         switch (pack)
         {
             case 1: {
-                    data.coins += 5000;
+                    data.coins += 1000;
 
                     break;
                 }
             case 2:
                 {
-                    data.coins += 15000;
+                    data.coins += 2000;
                     break;
                 }
             case 3:
                 {
-                    data.coins += 30000;
+                    data.coins += 3000;
                     break;
                 }
             case 4:
                 {
-                    data.coins += 80000;
+                    data.coins += 5000;
                     break;
                 }
 

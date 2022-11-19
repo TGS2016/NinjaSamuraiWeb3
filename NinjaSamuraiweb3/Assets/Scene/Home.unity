@@ -21748,7 +21748,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gold 5000
+  m_Text: Gold 1000
 --- !u!222 &1012596217
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25694,7 +25694,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gold 80000
+  m_Text: Gold 5000
 --- !u!222 &1210662799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26568,7 +26568,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gold 30000
+  m_Text: Gold 3000
 --- !u!222 &1251258211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35646,6 +35646,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 174075969}
     m_Modifications:
+    - target: {fileID: 9170270706667789393, guid: de7f723561255c14380b3c710c9d9c4a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9170270708236525242, guid: de7f723561255c14380b3c710c9d9c4a,
         type: 3}
       propertyPath: m_Name
@@ -43239,7 +43244,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gold 15000
+  m_Text: Gold 2000
 --- !u!222 &2048291511
 CanvasRenderer:
   m_ObjectHideFlags: 0

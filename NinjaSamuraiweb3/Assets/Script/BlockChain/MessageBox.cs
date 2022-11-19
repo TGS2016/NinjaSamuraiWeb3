@@ -85,13 +85,13 @@ public class MessageBox : MonoBehaviour
         LeanTween.cancel(information_box);
 
         information_box.SetActive(true);
-        LeanTween.scaleY(information_box, 1, 0.15f).setFrom(0);
+       // LeanTween.scaleY(information_box, 1, 0.15f).setFrom(0).setIgnoreTimeScale(true);
         // AudioManager.Instance.playSound(0);
 
-        yield return new WaitForSeconds(time);
-
-        LeanTween.scaleY(information_box, 0, 0.15f).setOnComplete(() => {
+        yield return new WaitForSecondsRealtime(time);
+        information_box.SetActive(false);
+       /* LeanTween.scaleY(information_box, 0, 0.15f).setIgnoreTimeScale(true).setOnComplete(() => {
             information_box.SetActive(false);
-        });
+        });*/
     }
 }
