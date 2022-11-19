@@ -95,8 +95,9 @@ public class BuyWeapon : MonoBehaviour {
 
 	public void BuyBtn()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
 		//If not enough money
-		if (money < cost) 
+		if (data.coins <= cost) 
 		{
 			NotEnoughMOneyUI.SetActive (true);
 			audioManager.instance.PlaySound ("NoMoney");
@@ -104,7 +105,7 @@ public class BuyWeapon : MonoBehaviour {
 		else 
 		{
 			//Subtract the Money based on weapon cost
-			LocalData data = DatabaseManager.Instance.GetLocalData();
+			
 			data.coins -= cost;
 			money -= cost;
 		

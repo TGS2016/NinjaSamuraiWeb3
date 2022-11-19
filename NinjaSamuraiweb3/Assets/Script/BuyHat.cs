@@ -61,8 +61,9 @@ public class BuyHat : MonoBehaviour {
 
 	public void BuyBtn()
 	{
+		LocalData data = DatabaseManager.Instance.GetLocalData();
 		//If not enough money
-		if (money < cost) 
+		if (data.coins <= cost) 
 		{
 			NotEnoughMOneyUI.SetActive (true);
 			audioManager.instance.PlaySound ("NoMoney");
@@ -71,7 +72,7 @@ public class BuyHat : MonoBehaviour {
 		{
 			//Subtract money based on hat cost
 			money -= cost;
-			LocalData data = DatabaseManager.Instance.GetLocalData();
+			
 			data.coins -= cost;
 			DatabaseManager.Instance.UpdateData(data);
 
