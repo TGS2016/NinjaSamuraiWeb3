@@ -1,7 +1,8 @@
 # Ninja Samurai: Shadow Fight
 Ninja Samurai: Shadow Fight is truly the greatest combination of the offline Role-playing game (RPG) and Action game. Based on the epic theme of heroic samurai ninja and evils.
 
-### [Click Here To Play](https://bafybeidovk22bwh3k4hazatrihribj27qhesgcxwlizn557liopfwnuohq.ipfs.gateway.valist.io/)
+#### Play On Web (Web3 Version)
+https://bafybeidovk22bwh3k4hazatrihribj27qhesgcxwlizn557liopfwnuohq.ipfs.gateway.valist.io/
 
 #### Play On Android
 https://play.google.com/store/apps/details?id=com.tgs.nssf
