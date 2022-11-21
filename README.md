@@ -22,7 +22,7 @@ Ninja Samurai: Shadow Fight is truly the greatest combination of the offline Rol
 
 ## Technologies
 - Unity game engine
-- [Aurora (Testnet) for in-game purchase, cars NFT and reward token ERC-20, exchange token]()
+- [Aurora (Testnet) for in-game purchase, cars NFT and reward token ERC-20, exchange token](https://github.com/TGS2016/NinjaSamuraiWeb3/blob/main/Near.md)
 - Remix IDE used to create smart contract for ERC-1155 NFT and In-app store
 
 ### Smart Contracts Aurora- Testnet : 

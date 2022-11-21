@@ -18,8 +18,8 @@
 
 
 ### Smart contract source code
-1) 
-2) 
+1) https://github.com/TGS2016/NinjaSamuraiWeb3/tree/main/NinjaSamuraiweb3/Contract/Contract1.txt
+2) https://github.com/TGS2016/NinjaSamuraiWeb3/tree/main/NinjaSamuraiweb3/Contract/Contract2.txt
 
 ![Use](/Images/NJC1.jpg)
 ![Use](/Images/NJC2.jpg)
