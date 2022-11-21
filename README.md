@@ -3,6 +3,15 @@ Ninja Samurai: Shadow Fight is truly the greatest combination of the offline Rol
 
 ### [Click Here To Play](https://bafybeidovk22bwh3k4hazatrihribj27qhesgcxwlizn557liopfwnuohq.ipfs.gateway.valist.io/)
 
+#### Play On Android
+https://play.google.com/store/apps/details?id=com.tgs.nssf
+
+#### Play On iOS
+https://itunes.apple.com/app/id1441387403
+
+#### Play On Mac
+https://itunes.apple.com/app/id1451387873
+
 ### Prerequisite
 * Aurora Testnet Network in Metamask
 * Testnet balance in account
