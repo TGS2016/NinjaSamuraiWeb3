@@ -15,11 +15,10 @@ Ninja Samurai: Shadow Fight is truly the greatest combination of the offline Rol
 * Earn reward as ERC-20 token
 
 ## Roadmap
-[*] Web3 Deployment
-[] Multiplayer system
-[] Leaderboard system
-[] More themes and characters with different challenges
-[] Utilization of token and market liquidity
+- Multiplayer system
+- Leaderboard system
+- More themes and characters with different challenges
+- Utilization of token and market liquidity
 
 ## Technologies
 - Unity game engine
